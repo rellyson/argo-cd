@@ -59,8 +59,24 @@ git["fab:fa-git-alt Git
 ci_cd["fas:fa-spinner CI/CD"]
 env["fas:fa-cloud Environment"]
 
-x_as_code -->|leaves at| git -->|change triggers| ci_cd -->|deploys to| env
+x_as_code -->|leaves at| git -->|changes| ci_cd -->|deploys to| env
 ```
+
+### Strategies
+
+There are two strategies that can be used for applying changes 
+to an environment to meet the repository desired state.
+
+#### Push based model
+
+In the `push` base model, a repository change will **automatically
+trigger** an action (build, deploy, etc).
+
+#### Pull based model
+
+In the `pull` base model, an operator **watches for changes in
+the repository** and triggers an action (build, deploy, etc) when **a
+change is detected**.
 
 ### Benefits
 
@@ -80,9 +96,9 @@ to match the desired state.
 
 ## Argo CD
 
-Argocd is a `pull-model` strategy, `gitops operator` that
-**automatically syncs (_reconcile_) Kubernetes
-resources** in the cluster.
+Argocd is a **pull model**, **gitops operator** that
+automatically **syncs (_reconcile_)** Kubernetes
+resources in the cluster.
 
 ```mermaid
 flowchart TD
@@ -122,6 +138,19 @@ argo --> git
 argo --> cluster
 ```
 
+## Deploying ArgoCD
+
+ArgoCD can be deployment using the official Helm Chart, 
+[available here](https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/README.md).
+
+## Defining an Application
+
+Argo applications can be defined declaratively using Kubernetes manifests.
+An example can be found in `app/application.yaml` file.
+
+In this [link](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/) you can see how an application is declared using argo `CRDs`.
+
 ## Useful links
 
+- [Argo CD official docs](https://argo-cd.readthedocs.io/en/stable/)
 - [Devops Journey - Explaining GitOps](https://www.youtube.com/watch?v=dIaX5IhRqkI)
